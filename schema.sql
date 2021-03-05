@@ -6,13 +6,13 @@ USE employees_db;
 
 --three tables for department, role, and employee
 
-CREATE TABLE department(
+CREATE TABLE department (
     id NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE role(
+CREATE TABLE role (
     id NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE role(
     FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE CASCADE
 );
 
-CREATE TABLE employee(
+CREATE TABLE employee (
     id NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
