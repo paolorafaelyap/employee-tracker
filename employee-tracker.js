@@ -13,3 +13,6 @@ const connectionProp = {
     password: "",
     database: employees_db
 };
+
+//this creates connection
+const connection = mysql.createConnection(connectionProp);
