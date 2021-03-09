@@ -8,9 +8,9 @@ const promiseMySql= require("promise-mysql");
 
 const connectionProp = {
     host: "localhost",
-    port: 3001,
+    port: 3306,
     user: "root",
-    password: "",
+    password: "Balls8927!",
     database: "employees_db"
 };
 
@@ -34,16 +34,10 @@ function mainMenu(){
         "View all employees",
         "View all by role",
         "View all by department",
-        "View all by manager",
         "Add employee",
         "Add role",
         "Add department",
-        "Update employee role",
-        "Update employee manager",
-        "Delete employee",
-        "Delete role",
-        "Delete department",
-        "View department budgets"
+        "Update employee role"
     ]
 })
 //
@@ -57,7 +51,7 @@ function mainMenu(){
                 byDept();
                 break;
 
-            case "View all employees by role":
+            case "View all by role":
                 byRole();
                 break;
 
@@ -103,7 +97,7 @@ function byDept(){
     let deptArr = [];
 
     // Create new connection using promise-sql
-    promisemysql.createConnection(connectionProperties
+    promiseMySql.createConnection(connectionProp
     ).then((conn) => {
 
         // Query just names of departments
@@ -149,7 +143,7 @@ function byRole(){
     let roleArr = [];
 
     // Create connection using promise-sql
-    promisemysql.createConnection(connectionProperties)
+    promiseMySql.createConnection(connectionProp)
     .then((conn) => {
 
         // Query all roles
@@ -191,7 +185,7 @@ function addEmp(){
     let managerArr = [];
 
     // Create connection using promise-sql
-    promisemysql.createConnection(connectionProperties
+    promiseMySql.createConnection(connectionProp
     ).then((conn) => {
 
         // Query  all roles and all manager. Pass as a promise
@@ -320,7 +314,7 @@ function addRole(){
     let departmentArr = [];
 
     // Create connection using promise-sql
-    promisemysql.createConnection(connectionProperties)
+    promiseMySql.createConnection(connectionProp)
     .then((conn) => {
 
         // Query all departments
@@ -387,7 +381,7 @@ function updateRole(){
     let roleArr = [];
 
     // Create connection using promise-sql
-    promisemysql.createConnection(connectionProperties
+    promiseMySql.createConnection(connectionProp
     ).then((conn) => {
         return Promise.all([
 
