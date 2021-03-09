@@ -161,7 +161,7 @@ function byDept(){
     });
 }
 
-function viewAllEmpByRole(){
+function byRole(){
 
     // set global array to store all roles
     let roleArr = [];
@@ -200,5 +200,116 @@ function viewAllEmpByRole(){
                 mainMenu();
             });
         });
+    });
+}
+function addEmp(){
+
+    // Create two global array to hold 
+    let roleArr = [];
+    let managerArr = [];
+
+    // Create connection using promise-sql
+    promisemysql.createConnection(connectionProperties
+    ).then((conn) => {
+
+        // Query  all roles and all manager. Pass as a promise
+        return Promise.all([
+            conn.query('SELECT id, title FROM role ORDER BY title ASC'), 
+            conn.query("SELECT employee.id, concat(employee.first_name, ' ' ,  employee.last_name) AS Employee FROM employee ORDER BY Employee ASC")
+        ]);
+    }).then(([roles, managers]) => {
+
+        // Place all roles in array
+        for (i=0; i < roles.length; i++){
+            roleArr.push(roles[i].title);
+        }
+
+        // place all managers in array
+        for (i=0; i < managers.length; i++){
+            managerArr.push(managers[i].Employee);
+        }
+
+        return Promise.all([roles, managers]);
+    }).then(([roles, managers]) => {
+
+        // add option for no manager
+        managerArr.unshift('--');
+
+        inquirer.prompt([
+            {
+                // Prompt user of their first name
+                name: "firstName",
+                type: "input",
+                message: "First name: ",
+                // Validate field is not blank
+                validate: function(input){
+                    if (input === ""){
+                        console.log("**FIELD REQUIRED**");
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+            },
+            {
+                // Prompt user of their last name
+                name: "lastName",
+                type: "input",
+                message: "Lastname name: ",
+                // Validate field is not blank
+                validate: function(input){
+                    if (input === ""){
+                        console.log("**FIELD REQUIRED**");
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+            },
+            {
+                // Prompt user of their role
+                name: "role",
+                type: "list",
+                message: "What is their role?",
+                choices: roleArr
+            },{
+                // Prompt user for manager
+                name: "manager",
+                type: "list",
+                message: "Who is their manager?",
+                choices: managerArr
+            }]).then((answer) => {
+
+                // Set variable for IDs
+                let roleID;
+                // Default Manager value as null
+                let managerID = null;
+
+                // Get ID of role selected
+                for (i=0; i < roles.length; i++){
+                    if (answer.role == roles[i].title){
+                        roleID = roles[i].id;
+                    }
+                }
+
+                // get ID of manager selected
+                for (i=0; i < managers.length; i++){
+                    if (answer.manager == managers[i].Employee){
+                        managerID = managers[i].id;
+                    }
+                }
+
+                // Add employee
+                connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                VALUES ("${answer.firstName}", "${answer.lastName}", ${roleID}, ${managerID})`, (err, res) => {
+                    if(err) return err;
+
+                    // Confirm employee has been added
+                    console.log(`\n EMPLOYEE ${answer.firstName} ${answer.lastName} ADDED...\n `);
+                    mainMenu();
+                });
+            });
     });
 }
