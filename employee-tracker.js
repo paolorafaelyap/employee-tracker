@@ -11,7 +11,7 @@ const connectionProp = {
     port: 3001,
     user: "root",
     password: "",
-    database: employees_db
+    database: "employees_db"
 };
 
 //this creates connection
