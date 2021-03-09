@@ -20,4 +20,4 @@ The app's features are:
 
 # Video Demo
 
-<iframe src="https://drive.google.com/file/d/1-0GwVa86mlwoiSJkwvHk1bDdOxDpnTu2/preview" width="640" height="480"></iframe>
+![watch video](https://drive.google.com/file/d/1-0GwVa86mlwoiSJkwvHk1bDdOxDpnTu2/view)
