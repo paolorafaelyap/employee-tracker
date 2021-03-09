@@ -18,6 +18,7 @@ The app's features are:
 * In the terminal, select from the main menu and follow the prompt.
 
 
-# Video Demo
+# Demo
 
-![watch video](https://drive.google.com/file/d/1-0GwVa86mlwoiSJkwvHk1bDdOxDpnTu2/view)
+<!-- ![watch video](https://drive.google.com/file/d/1-0GwVa86mlwoiSJkwvHk1bDdOxDpnTu2/view) -->
+See Assets folder
